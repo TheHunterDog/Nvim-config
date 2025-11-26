@@ -1,0 +1,42 @@
+return {
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+    {
+        "saghen/blink.cmp",
+        build = 'cargo +nightly build --release',
+
+        fuzzy = { implementation = 'prefer_rust_with_warning' },
+        opts = {
+            sources = {
+                -- add lazydev to your completion providers
+                default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+                providers = {
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        -- make lazydev completions top priority (see `:h blink.cmp`)
+                        score_offset = 100,
+                    },
+                },
+            },
+            keymap = {
+      preset = "enter",
+      ["<CR>"]   = { "accept", "fallback" },       -- Enter to accept
+      ["<Esc>"]  = { "cancel", "fallback" },       -- Esc to cancel (or 'hide')
+      ["<Tab>"]  = { "snippet_forward", "fallback" },
+      ["<S-Tab>"] = { "snippet_backward", "fallback" },
+      -- optionally override Up/Down or other keys too
+    },
+
+        },
+    }
+}
