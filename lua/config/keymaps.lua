@@ -98,3 +98,5 @@ vim.keymap.set("n", "<C-P>", ':lua require("config.utils").toggle_go_test()<CR>'
 vim.keymap.set("v", "<leader>ln", ':lua require("config.utils").get_highlighted_line_numbers()<CR>', opts)
 
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", opts)
+-- autocomplete
+vim.keymap.set('n', '<leader>e', ':Lexplore<CR>', { noremap = true, silent = true })
